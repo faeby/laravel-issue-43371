@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/requests/custom', function (\App\Http\Requests\ShouldBeInFrench $request) {
+    dump("INTL locale: " . \Locale::getDefault());
+    return "I'm the custom request. <a href='/requests/base'>Go to base request</a>";
+});
+
+Route::get('/requests/base', function (\Illuminate\Http\Request $request) {
+    dump("INTL locale: " . \Locale::getDefault());
+    return "I'm the original request. <a href='/requests/custom'>Go to custom request</a>";
+});
